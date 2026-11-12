@@ -1,0 +1,9 @@
+# Versions match the environment the script was tested in.
+# GDAL: the Python bindings must match the installed libgdal (check `gdal-config --version`).
+# The COG driver needs GDAL >= 3.1. Install libgdal first (e.g. apt install libgdal-dev),
+# or use conda/system packages instead of pip for this one.
+GDAL==3.12.2
+numpy==2.3.5
+pandas==2.3.3
+geopandas==1.1.2
+pyarrow==26.0.1

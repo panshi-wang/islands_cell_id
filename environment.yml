@@ -1,0 +1,12 @@
+# Cross-platform (Linux, macOS, Windows) environment via conda-forge, which ships
+# prebuilt GDAL binaries so nothing has to be compiled.
+name: islands_cell_id
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - gdal>=3.8
+  - numpy
+  - pandas
+  - geopandas
+  - pyarrow
