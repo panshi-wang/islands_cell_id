@@ -1,12 +1,11 @@
 """Build a cell-id COG from an island boundary and assign cell ids to a parquet of points.
 
-Cell-id logic is identical to boundary_buff.py:
+Cell-id logic:
   * boundary file holds a single island; reprojected to EPSG:4326
-  * gdal.Rasterize(allTouched=True, targetAlignedPixels=True, xRes=res, yRes=-res)
+  * gdal.Rasterize(allTouched=True, targetAlignedPixels=True, xRes=res, yRes=res)
   * ids = 1..N in row-major (C order) order over burned pixels, 0 = nodata, dtype uint32
 
-Points (columns x=lon, y=lat, as written by export_parquet.py) are located at the
-pixel centres of that raster; the ids are looked up from the written COG itself, so
+Points (columns x=lon, y=lat, at pixel centres) are located on that raster; the ids are looked up from the written COG itself, so
 the parquet and the GeoTIFF cannot disagree.
 """
 import argparse
@@ -92,7 +91,7 @@ def assign_points(cog_path, parquet_in, parquet_out):
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--region', required=True, help='Boundary shapefile or geojson')
-	parser.add_argument('--parquet', required=True, help='Input parquet from export_parquet.py')
+	parser.add_argument('--parquet', required=True, help='Input points parquet with x, y columns (no cell_id)')
 	parser.add_argument('--res', type=float, default=0.00025)
 	parser.add_argument('--cell_id', required=True, help='Output cell-id COG path')
 	parser.add_argument('--output', required=True, help='Output parquet path')
